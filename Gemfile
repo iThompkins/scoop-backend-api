@@ -3,18 +3,20 @@ ruby '2.6.3'
 
 gem 'bootsnap', require: false
 gem 'devise'
+gem 'devise_token_auth'
 gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.21'
 gem 'puma'
 gem 'rails', '5.2.3'
 gem 'redis'
-
+gem 'bcrypt', '~> 3.1.7'
+gem 'active_model_serializers', '~> 0.8.3'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 5.6.1'
-gem 'sassc-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
+gem 'rack-cors'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
