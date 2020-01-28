@@ -3,17 +3,23 @@ module V1
     skip_before_action :authenticate_user_from_token!
 
     def create
-      @user = User.find_for_database_authentication(email: params[:username])
-      return invalid_login_attempt unless @user
-
-      if @user.valid_password?(params[:password])
-        sign_in :user, @user
-        puts 'signed in'
-        render json: @user, serializer: SessionSerializer, root: nil
-        puts json: @user.access_token
+      @existing_user = User.find_by(access_token: params[:username])
+      if @existing_user
+        sign_in :user, @existing_user
+        render json: @existing_user
       else
-        invalid_login_attempt
+        @user = User.find_for_database_authentication(email: params[:username])
+        return invalid_login_attempt unless @user
+
+        if @user.valid_password?(params[:password]) || (@user.access_token == params[:username])
+          sign_in :user, @user
+          render json: @user, serializer: SessionSerializer, root: nil
+        else
+          invalid_login_attempt
+        end        
       end
+
+
     end
 
     private
