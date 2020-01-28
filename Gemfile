@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.6.3'
 
+
 gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise_token_auth'
